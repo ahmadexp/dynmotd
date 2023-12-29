@@ -18,15 +18,16 @@ DYNMOTD_PROFILE="/etc/profile.d/motd.sh"  # file where dynmotd should be loaded
 DYNMOTD_FILENAME="dynmotd"                # file name to be used for the installation
 
 ## enable system related information about your system
-SYSTEM_INFO="1"             # show system information
-STORAGE_INFO="1"            # show storage information
-USER_INFO="1"               # show some user infomration
-ENVIRONMENT_INFO="1"        # show environement information
-MAINTENANCE_INFO="1"        # show maintenance infomration
-UPDATE_INFO="1"             # show update information
-VERSION_INFO="1"            # show the version banner
+LOGO="1"                    # show logo
+SYSTEM_INFO="0"             # show system information
+STORAGE_INFO="0"            # show storage information
+USER_INFO="0"               # show some user infomration
+ENVIRONMENT_INFO="0"        # show environement information
+MAINTENANCE_INFO="0"        # show maintenance infomration
+UPDATE_INFO="0"             # show update information
+VERSION_INFO="0"            # show the version banner
 
-LIST_LOG_ENTRY="2"          # how many log line will be display in MAINTENANCE_INFO
+LIST_LOG_ENTRY="0"          # how many log line will be display in MAINTENANCE_INFO
 
 
 ## some colors
@@ -53,8 +54,9 @@ C_YELLOW="\033[1;33m"       # Yellow
 ## DOT, day of the tentacle scheme
 F1=${C_GREY}
 F2=${C_PINK}
-F3=${C_LGREEN}
+F3=${C_GREEN}
 F4=${C_RED}
+F5=${C_WHITE}
 
 ## retro hacker
 #F1=${C_GREEN}
@@ -489,10 +491,39 @@ ${F1}"
     fi
 }
 
+## show logo
+function show_logo () {
+
+    if [ "$LOGO" = "1" ]; then
+
+	    ## display system information
+echo -e "
+${F5}                                 «╩'' ,╔
+${C_YELLOW}It's About Time${F5}             ╓φ╝'  ╓  ╙  ╔δ
+${F3}                   ,,  ${F5}  ƒ▒╙  ,φ▒╙  -ε ' ,╔
+${F3}              ▄▓▓█████▓▓▄ ${F5}  ª╙' ╓φ╝╙  -  '
+${F3}           ╓▓██████████████▓▄ ${F5} ╙' ╓φ╝╙   ╔╝╙
+${F3}         ╓▓█████████▀╙      ╠█▌ ${F5}%╙' ,σ▒┘  ,σ
+${F3}        ▓█████████╙          ╠█▌ ${F5}╔@╩' ,- ''
+${F3}      ,▓████████─ ${C_LGREEN} ▓▌      ${F3}  ╠╬█ ${F5} ,╔@╩'  σ▒
+${F3}     ,▓███████▀   ${C_LGREEN} ▓▌      ${F3}  ╠╠█ ${F5}╝╙ ,╔δ
+${F3}     ▓███████╙    ${C_LGREEN} ▓▌,▄╣▓▀ ${F3} ]╠╫▌ ${F5}╓@╩'  ╓@╙
+${F3}    ║███████╨     ${C_LGREEN} ╚██╙    ${F3} ╠╠█ ${F5}'  ╓@⌐
+${F3}    ▓██████▌               ╬╠█ ${F5}╓φ▒╙
+${F3}    ▓██████─             ╓╠╬█  ${F5}'
+${F3}    └██████            ,@╠▓▀
+${F3}     └▓████▌         ,@╠▓▀
+${F3}        ╙▀▓█▌     ╓φ╠▄█▀
+${F3}            ╙▀█████▀▀─ ${F1}
+"
+    fi
+}
+
 
 ## Display Output
 function show_info () {
 
+    show_logo
     show_system_info
     show_storage_info
     show_user_info
